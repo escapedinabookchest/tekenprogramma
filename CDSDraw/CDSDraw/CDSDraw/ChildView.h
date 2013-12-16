@@ -24,6 +24,7 @@ private:
 
 	Shape* CurrentShape;
 	Shape* SelectedShape;
+
 	int SelectedShapeIndex;
 	
 	static vector<Shape*>* ShapesStack;

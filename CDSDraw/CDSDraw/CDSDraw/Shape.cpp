@@ -1,3 +1,5 @@
+#define _CRTDBG_MAP_ALLOC
+
 #include "stdafx.h"
 #include "Shape.h"
 #include <Windows.h>

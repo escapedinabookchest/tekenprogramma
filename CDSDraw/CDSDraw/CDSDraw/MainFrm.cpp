@@ -1,6 +1,9 @@
 
 // MainFrm.cpp : implementation of the CMainFrame class
 //
+#ifndef ON_BN_CLICKED
+#define ON_BN_CLICKED
+#endif
 
 #include "stdafx.h"
 #include "CDSDraw.h"
@@ -18,6 +21,7 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
+	ON_BN_CLICKED(ID_BUTTON32778, OnUndoClick)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -70,6 +74,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
 
+	((CButton*)GetDlgItem(ID_BUTTON32778))->EnableWindow(TRUE);
+
+	m_wndToolBar.EnableToolTips(TRUE);
 
 	return 0;
 }
@@ -119,3 +126,8 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+// CMainFrame toolbar handlers
+void CMainFrame::OnUndoClick()
+{
+	MessageBox(L"Undo!");
+}

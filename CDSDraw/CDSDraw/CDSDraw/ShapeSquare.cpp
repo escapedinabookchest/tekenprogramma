@@ -1,3 +1,5 @@
+#define _CRTDBG_MAP_ALLOC
+
 #include "stdafx.h"
 
 #include "Shape.h"
@@ -15,7 +17,9 @@ ShapeSquare::ShapeSquare(CPoint from, CPoint to, CString text, COLORREF edges, C
 	diagonal = 0;
 }
 
-ShapeSquare::~ShapeSquare() {}
+ShapeSquare::~ShapeSquare() 
+{
+}
 
 void ShapeSquare::Draw(CDC* pDC)
 {

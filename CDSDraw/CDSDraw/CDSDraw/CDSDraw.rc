@@ -51,6 +51,9 @@ BEGIN
     BUTTON      ID_EDIT_PASTE
     SEPARATOR
     BUTTON      ID_APP_ABOUT
+    BUTTON      IDC_BUTTON_UNDO
+    BUTTON      ID_BUTTON32782
+    BUTTON      ID_BUTTON32783
 END
 
 
@@ -91,6 +94,38 @@ BEGIN
         MENUITEM "Line",                        ID_SHAPE_LINE
         MENUITEM "Rectangle",                   ID_SHAPE_RECTANGLE
         MENUITEM "Square",                      ID_SHAPE_SQUARE
+    END
+    POPUP "Graphics"
+    BEGIN
+        POPUP "Line Color"
+        BEGIN
+            MENUITEM "Blue",                        ID_LINECOLOR_BLUE
+            MENUITEM "Red",                         ID_LINECOLOR_RED
+            MENUITEM "Green",                       ID_LINECOLOR_GREEN
+            MENUITEM "Yellow",                      ID_LINECOLOR_YELLOW
+        END
+        POPUP "Line Style"
+        BEGIN
+            MENUITEM "Solid",                       ID_LINESTYLE_SOLID
+            MENUITEM "Dashed",                      ID_LINESTYLE_DASHED
+            MENUITEM "Dotted",                      ID_LINESTYLE_DOTTED
+        END
+        POPUP "Line Thickness"
+        BEGIN
+            MENUITEM "Thin",                        ID_LINETHICKNESS_THIN
+            MENUITEM "Normal",                      ID_LINETHICKNESS_NORMAL
+            MENUITEM "Fat",                         ID_LINETHICKNESS_FAT
+        END
+        MENUITEM SEPARATOR
+        POPUP "Fill Color"
+        BEGIN
+            MENUITEM "Blue",                        ID_FILLCOLOR_BLUE
+            MENUITEM "Red",                         ID_FILLCOLOR_RED
+            MENUITEM "Green",                       ID_FILLCOLOR_GREEN
+            MENUITEM "Yellow",                      ID_FILLCOLOR_YELLOW
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Add Text...",                 ID_GRAPHICS_ADDTEXT
     END
 END
 
@@ -289,6 +324,11 @@ STRINGTABLE
 BEGIN
     AFX_IDS_SCRESTORE       "Restore the window to normal size"
     AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+STRINGTABLE
+BEGIN
+    ID_BUTTON32778          "Undo the last action."
 END
 
 #endif    // English (United States) resources

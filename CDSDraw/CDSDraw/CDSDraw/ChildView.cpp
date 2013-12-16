@@ -2,6 +2,7 @@
 // ChildView.cpp : implementation of the CChildView class
 //
 
+
 #include "stdafx.h"
 
 #include "CDSDraw.h"
@@ -20,6 +21,8 @@
 
 
 #ifdef _DEBUG
+#ifndef _DBG_NEW
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )  
 #define new DEBUG_NEW
 #endif
 
@@ -51,7 +54,9 @@ CChildView::~CChildView()
 	}
 
 	delete CurrentShape;
+	delete SelectedShape;
 	delete ShapesStack;
+	delete view;
 }
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
@@ -75,11 +80,6 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 		::LoadCursor(NULL, IDC_ARROW), reinterpret_cast<HBRUSH>(COLOR_WINDOW+1), NULL);
 
 	return TRUE;
-}
-
-void CChildView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
-{
-	OutputDebugString(L"HELLO FUCKFACE");
 }
 
 void CChildView::OnPaint() 
@@ -272,3 +272,5 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 
 	CWnd::OnMouseMove(nFlags, point);
 }
+
+#endif  // _DEBUG

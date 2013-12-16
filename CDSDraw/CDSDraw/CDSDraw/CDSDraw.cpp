@@ -2,6 +2,8 @@
 // CDSDraw.cpp : Defines the class behaviors for the application.
 //
 
+#define _CRTDBG_MAP_ALLOC
+
 #include "stdafx.h"
 #include "afxwinappex.h"
 #include "afxdialogex.h"

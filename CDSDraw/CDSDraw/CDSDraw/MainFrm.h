@@ -12,6 +12,8 @@ public:
 	CMainFrame();
 protected: 
 	DECLARE_DYNAMIC(CMainFrame)
+	
+	afx_msg void OnUndoClick();
 
 // Attributes
 public:
@@ -35,7 +37,7 @@ public:
 protected:  // control bar embedded members
 	CToolBar          m_wndToolBar;
 	CStatusBar        m_wndStatusBar;
-	CChildView    m_wndView;
+	CChildView		  m_wndView;
 
 // Generated message map functions
 protected:
