@@ -9,8 +9,8 @@
 
 using namespace std;
 
-ShapeSquare::ShapeSquare(CPoint from, CPoint to)
-	: Shape(from, to)
+ShapeSquare::ShapeSquare(CPoint from, CPoint to, CString text, COLORREF edges, COLORREF background, int thickness, int style)
+	: Shape(from, to, text, edges, background, thickness, style)
 {
 	diagonal = 0;
 }
@@ -26,7 +26,17 @@ void ShapeSquare::Draw(CDC* pDC)
 	CRect square(from.x, from.y,
 				 (from.x + diagonal), (from.y + diagonal));
 
+	CPen penBlue(style, thickness, edges);
+	CPen* pOldPen = pDC->SelectObject(&penBlue);
+
+	CBrush brushRed(background);
+	CBrush* pOldBrush = pDC->SelectObject(&brushRed);
+
 	pDC->Rectangle(square);
+	pDC->SelectObject(pOldPen);
+	pDC->SelectObject(pOldBrush);
+
+	pDC->TextOutW(from.x, from.y, text);
 }
 
 bool ShapeSquare::IsOn(CPoint point) const 

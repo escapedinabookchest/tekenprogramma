@@ -14,7 +14,16 @@ using namespace std;
 class ShapeEllipse : public Shape
 {
 public:
-	ShapeEllipse(CPoint from, CPoint to);
+	ShapeEllipse(
+		CPoint from, 
+		CPoint to, 
+		CString text = _T(""), 
+		COLORREF edges = RGB(0, 0, 0), 
+		COLORREF background = RGB(255, 255, 255),
+		int thickness = 1,
+		int style = PS_SOLID
+	);
+
 	~ShapeEllipse();
 
 	/**
@@ -27,7 +36,7 @@ public:
 	 * The method IsOn checks if a partical point is inside the instance of the ellipse. 
 	 */
 	bool IsOn(CPoint point) const;
-	
+
 	/**
 	 * The method ToString writes a shorthand for the type of shape and coordinates 
 	 * of the shape to a string (for output to file).

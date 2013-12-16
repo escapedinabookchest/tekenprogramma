@@ -60,6 +60,7 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_LBUTTONUP()
 	ON_WM_RBUTTONUP()
 	ON_WM_MOUSEMOVE()
+	ON_WM_SETFOCUS()
 END_MESSAGE_MAP()
 
 // CChildView message handlers
@@ -76,6 +77,11 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 	return TRUE;
 }
 
+void CChildView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	OutputDebugString(L"HELLO FUCKFACE");
+}
+
 void CChildView::OnPaint() 
 {
 	CPaintDC dc(this); // device context for painting
@@ -83,6 +89,8 @@ void CChildView::OnPaint()
 	// Redraw all shapes
 	CDC* pDC = GetDC();
 	view = this;
+	CWnd::SetFocus();
+	
 
 	CPen solidPen;
 	solidPen.CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
@@ -145,7 +153,7 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 			if(ShapesStack->at(i)->IsOn(point)) {
 				SelectedShape = ShapesStack->at(i);
 
-				SelectedShape->isSelected = true;
+				SelectedShape->SetIsSelected(true);
 				view->OnPaint();
 
 				SelectedShapeIndex = (int)i;
@@ -187,20 +195,19 @@ void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 
 	CDC* pDC = GetDC();
 
-	CPen solidPen;
-	solidPen.CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
-	CPen* oldPen = pDC->SelectObject(&solidPen);
-
-	CurrentShape->from = StartPoint;
-	CurrentShape->to = EndPoint;
+	CurrentShape->SetFrom(StartPoint);
+	CurrentShape->SetTo(EndPoint);
+	CurrentShape->SetEdges(RGB(75, 91, 117));
+	CurrentShape->SetBackground(RGB(153, 167, 193));
+	CurrentShape->SetThickness(3);
+	CurrentShape->SetStyle(PS_SOLID);
+	//CurrentShape->SetText(L"SAY WHAT SAY WHAT");
 	CurrentShape->Draw(pDC);
 
 	Shape* shape = CurrentShape;
 	ShapesStack->push_back(shape);
 
 	CurrentShape = NULL;
-
-	pDC->SelectObject(oldPen);
 
 	ReleaseDC(pDC);
 
@@ -242,14 +249,18 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 
 		if (EndPoint.x != -1)
 		{
-			CurrentShape->from = StartPoint;
-			CurrentShape->to = EndPoint;
+			CurrentShape->SetFrom(StartPoint);
+			CurrentShape->SetTo(EndPoint);
 
 			CurrentShape->Draw(pDC);
 		}
 
-		CurrentShape->from = StartPoint;
-		CurrentShape->to = point;
+		CurrentShape->SetFrom(StartPoint);
+		CurrentShape->SetTo(point);
+		CurrentShape->SetEdges(RGB(75, 91, 117));
+		CurrentShape->SetBackground(RGB(153, 167, 193));
+		CurrentShape->SetThickness(3);
+		CurrentShape->SetStyle(PS_SOLID);
 
 		CurrentShape->Draw(pDC);
 

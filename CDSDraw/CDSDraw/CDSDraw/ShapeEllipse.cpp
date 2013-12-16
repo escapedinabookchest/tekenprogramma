@@ -9,14 +9,23 @@
 
 using namespace std;
 
-ShapeEllipse::ShapeEllipse(CPoint from, CPoint to)
-	: Shape(from, to) { }
+ShapeEllipse::ShapeEllipse(CPoint from, CPoint to, CString text, COLORREF edges, COLORREF background, int thickness, int style)
+	: Shape(from, to, text, edges, background, thickness, style) {}
 
 ShapeEllipse::~ShapeEllipse() {}
 
 void ShapeEllipse::Draw(CDC* pDC)
 {
+	CPen penBlue(style, thickness, edges);
+	CPen* pOldPen = pDC->SelectObject(&penBlue);
+
+	CBrush brushRed(background);
+	CBrush* pOldBrush = pDC->SelectObject(&brushRed);
+
 	pDC->Ellipse(from.x, from.y, to.x, to.y);
+	pDC->SelectObject(pOldPen);
+	pDC->SelectObject(pOldBrush);
+	pDC->TextOutW(from.x, from.y, text);
 }
 
 bool ShapeEllipse::IsOn(CPoint point) const 

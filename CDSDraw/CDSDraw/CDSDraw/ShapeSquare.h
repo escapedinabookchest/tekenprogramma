@@ -17,7 +17,16 @@ private:
 	int diagonal; // is used to calculate the area of the square.
 
 public:
-	ShapeSquare(CPoint from, CPoint to);
+	ShapeSquare(
+		CPoint from, 
+		CPoint to, 
+		CString text = _T(""), 
+		COLORREF edges = RGB(0, 0, 0), 
+		COLORREF background = RGB(255, 255, 255),
+		int thickness = 1,
+		int style = PS_SOLID
+	);
+
 	~ShapeSquare();
 
 	/**
@@ -30,7 +39,7 @@ public:
 	 * The method IsOn checks if a partical point is inside the instance of the square. 
 	 */
 	bool IsOn(CPoint point) const;
-	
+
 	/**
 	 * The method ToString writes a shorthand for the type of shape and coordinates 
 	 * of the shape to a string (for output to file).

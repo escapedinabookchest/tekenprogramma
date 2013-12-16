@@ -111,6 +111,7 @@
     <ClInclude Include="ShapeEllipse.h" />
     <ClInclude Include="ShapeFileReader.h" />
     <ClInclude Include="ShapeLine.h" />
+    <ClInclude Include="ShapePolygon.h" />
     <ClInclude Include="ShapeRectangle.h" />
     <ClInclude Include="ShapeSquare.h" />
     <ClInclude Include="stdafx.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="ShapeEllipse.cpp" />
     <ClCompile Include="ShapeFileReader.cpp" />
     <ClCompile Include="ShapeLine.cpp" />
+    <ClCompile Include="ShapePolygon.cpp" />
     <ClCompile Include="ShapeRectangle.cpp" />
     <ClCompile Include="ShapeSquare.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -1,5 +1,5 @@
-#ifndef SHAPERECTANGLE_H
-#define SHAPERECTANGLE_H
+#ifndef SHAPEELLIPSE_H
+#define SHAPEELLIPSE_H
 
 #include "Shape.h"
 #include "stdafx.h"
@@ -9,14 +9,18 @@
 using namespace std;
 
 /**
- *	The class ShapeRectangle represents a drawable Rectangle instance of base type Shape.
+ *	The class ShapeEllipse represents a drawable Ellipse instance of base type Shape.
  */
-class ShapeRectangle : public Shape
+class ShapePolygon : public Shape
 {
+private:
+	CPoint* points;
+	int count;
+
 public:
-	ShapeRectangle(
-		CPoint from, 
-		CPoint to, 
+	ShapePolygon(
+		CPoint* points,
+		int count,
 		CString text = _T(""), 
 		COLORREF edges = RGB(0, 0, 0), 
 		COLORREF background = RGB(255, 255, 255),
@@ -24,7 +28,7 @@ public:
 		int style = PS_SOLID
 	);
 
-	~ShapeRectangle();
+	~ShapePolygon();
 
 	/**
 	 * The method Draw uses the two points 'from' and 'to' to draw and add the shape 
@@ -33,7 +37,7 @@ public:
 	void Draw(CDC* pDC);
 
 	/**
-	 * The method IsOn checks if a partical point is inside the instance of the rectangle.
+	 * The method IsOn checks if a partical point is inside the instance of the ellipse. 
 	 */
 	bool IsOn(CPoint point) const;
 
@@ -42,6 +46,11 @@ public:
 	 * of the shape to a string (for output to file).
 	 */
 	string ToString();
+
+	int GetCount() const;
+	
+	CPoint* GetPoints() const;
+	void SetPoints(CPoint* points);
 };
 
 #endif
