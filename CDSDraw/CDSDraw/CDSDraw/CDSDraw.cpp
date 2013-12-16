@@ -36,6 +36,7 @@ BEGIN_MESSAGE_MAP(CCDSDrawApp, CWinApp)
 	ON_UPDATE_COMMAND_UI(ID_SHAPE_SQUARE, &CCDSDrawApp::OnUpdateShapeSquare)
 	ON_COMMAND(ID_FILE_OPEN32776, &CCDSDrawApp::OnFileOpen)
 	ON_COMMAND(ID_FILE_SAVE32777, &CCDSDrawApp::OnFileSave)
+	ON_COMMAND(ID_EDIT_UNDO, &CCDSDrawApp::OnEditUndo)
 END_MESSAGE_MAP()
 
 
@@ -300,4 +301,10 @@ void CCDSDrawApp::OnFileSave()
 
 		outputFile.close();
 	}
+}
+
+
+void CCDSDrawApp::OnEditUndo()
+{
+	CChildView::TryUndo();
 }

@@ -24,7 +24,7 @@ x Je kunt kiezen uit de vormen: Vierkant, Rechthoek, Cirkel, Ellips en...
 x Er komt een vinkje in het menu vóór de huidige keuze(s).
 x Tijdens het tekenen met de muis wordt de vorm in stippellijntjes getekend, pas in gewenste
   kleur bij loslaten.
-- Er is een undo-functie (CTRL+Z & via de Toolbar).
+x Er is een undo-functie (CTRL+Z & via de Toolbar).
 x Je kunt objecten selecteren met een klik. Maak een methode 'virtual bool Shape::IsOn(CPoint point) const;'.
 x Je kunt geselecteerde objecten verwijderen.
 x Als nodig wordt alles opnieuw getekend (bijvoorbeeld na minimize-maximize).

@@ -48,9 +48,9 @@ CChildView::~CChildView()
 {
 	for (vector<Shape*>::const_iterator it = ShapesStack->begin(); it < ShapesStack->end(); ++it)
 	{
-		Shape* s = *it;
+		Shape* shape = *it;
 
-		delete s;
+		delete shape;
 	}
 
 	delete CurrentShape;
@@ -82,6 +82,16 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 	return TRUE;
 }
 
+void CChildView::TryUndo()
+{
+	if (ShapesStack->size() > 0)
+	{
+		ShapesStack->pop_back();
+
+		view->RedrawWindow();
+	}
+}
+
 void CChildView::OnPaint() 
 {
 	CPaintDC dc(this); // device context for painting
@@ -100,6 +110,8 @@ void CChildView::OnPaint()
 	{
 		Shape* shape = *it;
 		shape->Draw(pDC);
+
+		delete shape;
 	}
 
 	pDC->SelectObject(oldPen);
@@ -190,7 +202,7 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 // Triggers wether the left mouse button is being released
 void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	if (shapeIndex == -1)
+	if (shapeIndex == -1 || !CurrentShape)
 		return;
 
 	CDC* pDC = GetDC();
@@ -234,7 +246,7 @@ void CChildView::OnRButtonUp(UINT nFlags, CPoint point)
 // Triggers wether the mouse moves
 void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 {
-	if (shapeIndex == -1)
+	if (shapeIndex == -1 || !CurrentShape)
 		return;
 
 	if (StartPoint.x != -1)

@@ -42,6 +42,7 @@ public:
 	afx_msg void OnUpdateShapeSquare(CCmdUI *pCmdUI);
 	afx_msg void OnFileOpen();
 	afx_msg void OnFileSave();
+	afx_msg void OnEditUndo();
 };
 
 extern CCDSDrawApp theApp;

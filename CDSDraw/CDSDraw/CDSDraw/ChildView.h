@@ -39,9 +39,12 @@ public:
 	static void LoadShapes(string fileSource);
 	static string SaveShapes();
 
+	static void TryUndo();
+
 // Overrides
 	protected:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	
 
 // Implementation
 public:
