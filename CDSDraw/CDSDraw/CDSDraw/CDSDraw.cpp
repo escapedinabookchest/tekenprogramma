@@ -9,11 +9,11 @@
 #include "afxdialogex.h"
 #include "CDSDraw.h"
 #include "MainFrm.h"
+#include "DialogAddText.h"
 
 #include <fstream>
 #include <iostream>
 #include <string>
-
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -37,6 +37,36 @@ BEGIN_MESSAGE_MAP(CCDSDrawApp, CWinApp)
 	ON_COMMAND(ID_FILE_OPEN32776, &CCDSDrawApp::OnFileOpen)
 	ON_COMMAND(ID_FILE_SAVE32777, &CCDSDrawApp::OnFileSave)
 	ON_COMMAND(ID_EDIT_UNDO, &CCDSDrawApp::OnEditUndo)
+	ON_COMMAND(ID_FILLCOLOR_BLUE, &CCDSDrawApp::OnFillcolorBlue)
+	ON_UPDATE_COMMAND_UI(ID_FILLCOLOR_BLUE, &CCDSDrawApp::OnUpdateFillcolorBlue)
+	ON_COMMAND(ID_FILLCOLOR_RED, &CCDSDrawApp::OnFillcolorRed)
+	ON_UPDATE_COMMAND_UI(ID_FILLCOLOR_RED, &CCDSDrawApp::OnUpdateFillcolorRed)
+	ON_COMMAND(ID_FILLCOLOR_GREEN, &CCDSDrawApp::OnFillcolorGreen)
+	ON_UPDATE_COMMAND_UI(ID_FILLCOLOR_GREEN, &CCDSDrawApp::OnUpdateFillcolorGreen)
+	ON_COMMAND(ID_FILLCOLOR_WHITE, &CCDSDrawApp::OnFillcolorWhite)
+	ON_UPDATE_COMMAND_UI(ID_FILLCOLOR_WHITE, &CCDSDrawApp::OnUpdateFillcolorWhite)
+	ON_COMMAND(ID_LINETHICKNESS_THIN, &CCDSDrawApp::OnLinethicknessThin)
+	ON_UPDATE_COMMAND_UI(ID_LINETHICKNESS_THIN, &CCDSDrawApp::OnUpdateLinethicknessThin)
+	ON_COMMAND(ID_LINETHICKNESS_NORMAL, &CCDSDrawApp::OnLinethicknessNormal)
+	ON_UPDATE_COMMAND_UI(ID_LINETHICKNESS_NORMAL, &CCDSDrawApp::OnUpdateLinethicknessNormal)
+	ON_COMMAND(ID_LINETHICKNESS_FAT, &CCDSDrawApp::OnLinethicknessFat)
+	ON_UPDATE_COMMAND_UI(ID_LINETHICKNESS_FAT, &CCDSDrawApp::OnUpdateLinethicknessFat)
+	ON_COMMAND(ID_LINESTYLE_SOLID, &CCDSDrawApp::OnLinestyleSolid)
+	ON_UPDATE_COMMAND_UI(ID_LINESTYLE_SOLID, &CCDSDrawApp::OnUpdateLinestyleSolid)
+	ON_COMMAND(ID_LINESTYLE_DASHED, &CCDSDrawApp::OnLinestyleDashed)
+	ON_UPDATE_COMMAND_UI(ID_LINESTYLE_DASHED, &CCDSDrawApp::OnUpdateLinestyleDashed)
+	ON_COMMAND(ID_LINESTYLE_DOTTED, &CCDSDrawApp::OnLinestyleDotted)
+	ON_UPDATE_COMMAND_UI(ID_LINESTYLE_DOTTED, &CCDSDrawApp::OnUpdateLinestyleDotted)
+	ON_COMMAND(ID_LINECOLOR_BLACK, &CCDSDrawApp::OnLinecolorBlack)
+	ON_UPDATE_COMMAND_UI(ID_LINECOLOR_BLACK, &CCDSDrawApp::OnUpdateLinecolorBlack)
+	ON_COMMAND(ID_LINECOLOR_BLUE, &CCDSDrawApp::OnLinecolorBlue)
+	ON_UPDATE_COMMAND_UI(ID_LINECOLOR_BLUE, &CCDSDrawApp::OnUpdateLinecolorBlue)
+	ON_COMMAND(ID_LINECOLOR_RED, &CCDSDrawApp::OnLinecolorRed)
+	ON_UPDATE_COMMAND_UI(ID_LINECOLOR_RED, &CCDSDrawApp::OnUpdateLinecolorRed)
+	ON_COMMAND(ID_LINECOLOR_GREEN, &CCDSDrawApp::OnLinecolorGreen)
+	ON_UPDATE_COMMAND_UI(ID_LINECOLOR_GREEN, &CCDSDrawApp::OnUpdateLinecolorGreen)
+	ON_COMMAND(ID_GRAPHICS_ADDTEXT, &CCDSDrawApp::OnGraphicsAddtext)
+	ON_UPDATE_COMMAND_UI(ID_GRAPHICS_ADDTEXT, &CCDSDrawApp::OnUpdateGraphicsAddtext)
 END_MESSAGE_MAP()
 
 
@@ -306,5 +336,256 @@ void CCDSDrawApp::OnFileSave()
 
 void CCDSDrawApp::OnEditUndo()
 {
-	CChildView::TryUndo();
+	//CChildView::TryUndo();
+}
+
+//////////////////
+//  FILL COLOR  //
+//////////////////
+
+void CCDSDrawApp::OnFillcolorBlue()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetBackground(RGB(0,0,255));
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateFillcolorBlue(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetBackground() == RGB(0,0,255) ? 1 : 0);
+}
+
+void CCDSDrawApp::OnFillcolorRed()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetBackground(RGB(255,0,0));
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateFillcolorRed(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetBackground() == RGB(255,0,0) ? 1 : 0);
+}
+
+void CCDSDrawApp::OnFillcolorGreen()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetBackground(RGB(0,255,0));
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateFillcolorGreen(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetBackground() == RGB(0,255,0) ? 1 : 0);
+}
+
+void CCDSDrawApp::OnFillcolorWhite()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetBackground(RGB(255,255,255));
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateFillcolorWhite(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetBackground() == RGB(255,255,255) ? 1 : 0);
+}
+
+//////////////////////
+//  LINE THICKNESS  //
+//////////////////////
+
+void CCDSDrawApp::OnLinethicknessThin()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetThickness(1);
+		CChildView::view->OnPaint();
+	}
+}
+
+
+void CCDSDrawApp::OnUpdateLinethicknessThin(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetThickness() == 1 ? 1 : 0);
+}
+
+void CCDSDrawApp::OnLinethicknessNormal()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetThickness(3);
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateLinethicknessNormal(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetThickness() == 3 ? 1 : 0);
+}
+
+void CCDSDrawApp::OnLinethicknessFat()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetThickness(5);
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateLinethicknessFat(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetThickness() == 5 ? 1 : 0);
+}
+
+//////////////////
+//  LINE STYLE  //
+//////////////////
+
+void CCDSDrawApp::OnLinestyleSolid()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetStyle(PS_SOLID);
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateLinestyleSolid(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetStyle() == PS_SOLID ? 1 : 0);
+}
+
+void CCDSDrawApp::OnLinestyleDashed()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetStyle(PS_DASH);
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateLinestyleDashed(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetStyle() == PS_DASH ? 1 : 0);
+}
+
+void CCDSDrawApp::OnLinestyleDotted()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetStyle(PS_DOT);
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateLinestyleDotted(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetStyle() == PS_DOT ? 1 : 0);
+}
+
+//////////////////
+//  LINE COLOR  //
+//////////////////
+
+void CCDSDrawApp::OnLinecolorBlack()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetEdges(RGB(0,0,0));
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateLinecolorBlack(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetEdges() == RGB(0,0,0) ? 1 : 0);
+}
+
+void CCDSDrawApp::OnLinecolorBlue()
+{
+	if (CChildView::SelectedShape != NULL) 
+	{
+		CChildView::SelectedShape->SetEdges(RGB(0,0,255));
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateLinecolorBlue(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetEdges() == RGB(0,0,255) ? 1 : 0);
+}
+
+void CCDSDrawApp::OnLinecolorRed()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetEdges(RGB(255,0,0));
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateLinecolorRed(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetEdges() == RGB(255,0,0) ? 1 : 0);
+}
+
+void CCDSDrawApp::OnLinecolorGreen()
+{
+	if (CChildView::SelectedShape != NULL)
+	{
+		CChildView::SelectedShape->SetEdges(RGB(0,255,0));
+		CChildView::view->OnPaint();
+	}
+}
+
+void CCDSDrawApp::OnUpdateLinecolorGreen(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetEdges() == RGB(0,255,0) ? 1 : 0);
+}
+
+////////////////
+//  ADD TEXT  //
+////////////////
+
+void CCDSDrawApp::OnGraphicsAddtext()
+{
+	if (CChildView::SelectedShape != NULL) 
+	{
+		DialogAddText dialog;
+		
+		if(IDOK == dialog.DoModal())
+		{
+			CChildView::SelectedShape->SetText(L"ADD TEXT HERE");
+			CChildView::view->OnPaint();
+		}
+	}
+}
+
+void CCDSDrawApp::OnUpdateGraphicsAddtext(CCmdUI *pCmdUI)
+{
+	if (CChildView::SelectedShape != NULL)
+		pCmdUI->SetCheck(CChildView::SelectedShape->GetText()[0] == '\0' ? 0 : 1);
 }

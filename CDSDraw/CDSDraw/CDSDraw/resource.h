@@ -7,6 +7,8 @@
 #define IDD_DIALOGBAR                   103
 #define IDR_MAINFRAME                   128
 #define IDR_CDSDrawTYPE                 130
+#define IDD_ADDTEXT                     310
+#define IDC_EDIT1                       1000
 #define ID_SHAPE_CIRCLE                 32771
 #define ID_SHAPE_ELLIPSE                32772
 #define ID_SHAPE_LINE                   32773
@@ -37,14 +39,17 @@
 #define ID_FILLCOLOR_RED                32800
 #define ID_FILLCOLOR_GREEN              32801
 #define ID_FILLCOLOR_YELLOW             32802
+#define ID_Menu32803                    32803
+#define ID_FILLCOLOR_WHITE              32804
+#define ID_LINECOLOR_BLACK              32805
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        310
-#define _APS_NEXT_COMMAND_VALUE         32803
-#define _APS_NEXT_CONTROL_VALUE         1000
+#define _APS_NEXT_RESOURCE_VALUE        311
+#define _APS_NEXT_COMMAND_VALUE         32806
+#define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

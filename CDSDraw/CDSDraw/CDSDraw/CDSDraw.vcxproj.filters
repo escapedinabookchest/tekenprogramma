@@ -63,6 +63,9 @@
     <ClInclude Include="ShapePolygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DialogAddText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDSDraw.cpp">
@@ -99,6 +102,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShapePolygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogAddText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

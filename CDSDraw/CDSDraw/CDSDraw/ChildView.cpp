@@ -19,7 +19,6 @@
 
 #include <string>
 
-
 #ifdef _DEBUG
 #ifndef _DBG_NEW
 #define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )  
@@ -31,6 +30,8 @@
 
 // Static field initializations
 int CChildView::shapeIndex = -1;
+Shape* CChildView::SelectedShape = NULL;
+int CChildView::SelectedShapeIndex = -1;
 
 vector<Shape*>* CChildView::ShapesStack = new vector<Shape*>();
 CChildView* CChildView::view;
@@ -40,7 +41,7 @@ CChildView::CChildView()
 {
 	StartPoint.x = -1;
 	EndPoint.x = -1;
-	SelectedShapeIndex = -1;
+	//SelectedShapeIndex = -1;
 }
 
 // CChildView destructor
@@ -48,9 +49,9 @@ CChildView::~CChildView()
 {
 	for (vector<Shape*>::const_iterator it = ShapesStack->begin(); it < ShapesStack->end(); ++it)
 	{
-		Shape* shape = *it;
+		Shape* s = *it;
 
-		delete shape;
+		delete s;
 	}
 
 	delete CurrentShape;
@@ -82,16 +83,6 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 	return TRUE;
 }
 
-void CChildView::TryUndo()
-{
-	if (ShapesStack->size() > 0)
-	{
-		ShapesStack->pop_back();
-
-		view->RedrawWindow();
-	}
-}
-
 void CChildView::OnPaint() 
 {
 	CPaintDC dc(this); // device context for painting
@@ -101,7 +92,6 @@ void CChildView::OnPaint()
 	view = this;
 	CWnd::SetFocus();
 	
-
 	CPen solidPen;
 	solidPen.CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
 	CPen* oldPen = pDC->SelectObject(&solidPen);
@@ -110,15 +100,12 @@ void CChildView::OnPaint()
 	{
 		Shape* shape = *it;
 		shape->Draw(pDC);
-
-		delete shape;
 	}
 
 	pDC->SelectObject(oldPen);
 
 	ReleaseDC(pDC);
 }
-
 
 // CChildView IO Event Handlers
 
@@ -178,6 +165,8 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	switch (shapeIndex)
 	{
+		case 0:
+			CurrentShape = new ShapeCircle(StartPoint, point);
 		case 1:
 			CurrentShape = new ShapeEllipse(StartPoint, point);
 			break;
@@ -190,41 +179,43 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 		case 4:
 			CurrentShape = new ShapeSquare(StartPoint, point);
 			break;
-		case 0:
 		default:
-			CurrentShape = new ShapeCircle(StartPoint, point);
+			shapeIndex = -1;
 			break;
 	}
+	
+	SelectedShape = CurrentShape;
 
 	CWnd::OnLButtonDown(nFlags, point);
 }
 
-// Triggers wether the left mouse button is being released
+// Triggers whether the left mouse button is being released
 void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	if (shapeIndex == -1 || !CurrentShape)
+	if (shapeIndex == -1)
 		return;
 
 	CDC* pDC = GetDC();
 
-	CurrentShape->SetFrom(StartPoint);
-	CurrentShape->SetTo(EndPoint);
-	CurrentShape->SetEdges(RGB(75, 91, 117));
-	CurrentShape->SetBackground(RGB(153, 167, 193));
-	CurrentShape->SetThickness(3);
-	CurrentShape->SetStyle(PS_SOLID);
-	//CurrentShape->SetText(L"SAY WHAT SAY WHAT");
-	CurrentShape->Draw(pDC);
+	//CurrentShape->SetFrom(StartPoint);
+	//CurrentShape->SetTo(EndPoint);
+	//CurrentShape->SetEdges(RGB(0, 0, 0));
+	//CurrentShape->SetBackground(RGB(255, 255, 255));
+	//CurrentShape->SetThickness(1);
+	//CurrentShape->SetStyle(PS_SOLID);
+	//CurrentShape->Draw(pDC);
 
 	Shape* shape = CurrentShape;
 	ShapesStack->push_back(shape);
 
 	CurrentShape = NULL;
-
-	ReleaseDC(pDC);
+	SelectedShapeIndex = -1;
+	shapeIndex == -1;
 
 	StartPoint.x = -1;
 	EndPoint.x = -1;
+
+	ReleaseDC(pDC);
 
 	CWnd::OnLButtonUp(nFlags, point);
 }
@@ -234,19 +225,25 @@ void CChildView::OnRButtonUp(UINT nFlags, CPoint point)
 	if(SelectedShapeIndex != -1) 
 	{
 		ShapesStack->erase(ShapesStack->begin() + SelectedShapeIndex);
-		SelectedShape = NULL;
-		SelectedShapeIndex = -1;
 
 		view->InvalidateRect(NULL, true);
 		view->GetParent()->PostMessage(WM_PAINT);
 		view->OnPaint();
+
+		SelectedShape = NULL;
+		CurrentShape = NULL;
+		SelectedShapeIndex = -1;
+		shapeIndex = -1;
+
+		StartPoint.x = -1;
+		EndPoint.x = -1;
 	}
 }
 
 // Triggers wether the mouse moves
 void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 {
-	if (shapeIndex == -1 || !CurrentShape)
+	if (shapeIndex == -1)
 		return;
 
 	if (StartPoint.x != -1)
@@ -269,11 +266,10 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 
 		CurrentShape->SetFrom(StartPoint);
 		CurrentShape->SetTo(point);
-		CurrentShape->SetEdges(RGB(75, 91, 117));
-		CurrentShape->SetBackground(RGB(153, 167, 193));
-		CurrentShape->SetThickness(3);
+		CurrentShape->SetEdges(RGB(0, 0, 0));
+		CurrentShape->SetBackground(RGB(255, 255, 255));
+		CurrentShape->SetThickness(1);
 		CurrentShape->SetStyle(PS_SOLID);
-
 		CurrentShape->Draw(pDC);
 
 		pDC->SelectObject(oldPen);

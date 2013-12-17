@@ -23,35 +23,29 @@ private:
 	CPoint EndPoint;
 
 	Shape* CurrentShape;
-	Shape* SelectedShape;
-
-	int SelectedShapeIndex;
-	
 	static vector<Shape*>* ShapesStack;
-	static CChildView* view;
 
 public:
 	static int shapeIndex;
-
+	static Shape* SelectedShape;
+	static int SelectedShapeIndex;
+	static CChildView* view;
 // Operations
 public:
 
 	static void LoadShapes(string fileSource);
 	static string SaveShapes();
 
-	static void TryUndo();
-
 // Overrides
 	protected:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-	
 
 // Implementation
 public:
 	virtual ~CChildView();
 
 	// Generated message map functions
-protected:
+//protected:
 	afx_msg void OnPaint();
 	DECLARE_MESSAGE_MAP()
 public:
@@ -61,4 +55,3 @@ public:
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };
-
